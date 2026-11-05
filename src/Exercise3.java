@@ -1,4 +1,3 @@
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
@@ -6,13 +5,17 @@ import java.util.Scanner;
 public class Exercise3 {
     public static void FileUpdate(Path path, String string) {
         try {
-            String data = Files.readString(path);
-            data += string;
-            Files.writeString(path, data);
+            if (!Files.exists(path)) Files.writeString(path, "Name,Student ID,Gender");
+            else {
+                String data = Files.readString(path);
+                data += string;
+                Files.writeString(path, data);
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+
     public static void main(String[] args) {
         Path path = Path.of("Ex3StudentData.csv");
         Scanner input = new Scanner(System.in);
