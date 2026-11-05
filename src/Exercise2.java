@@ -1,12 +1,19 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.util.Scanner;
 
 public class Exercise2 {
     public static void main(String[] args) {
         File dir = new File("Ex2LuckyNumber");
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter number of files: ");
+        int num = input.nextInt();
+        input.close();
+
         try {
+            dir.delete();
             dir.mkdir();
-            for (int i = 1; i <= 100; i ++) {
+            for (int i = 1; i <= num; i ++) {
                 File file = new File("Ex2LuckyNumber/file" + i + ".csv");
                 FileWriter writer = new FileWriter(file);
                 for (int j = 0; j < 100; j ++) {
