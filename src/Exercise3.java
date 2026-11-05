@@ -9,8 +9,9 @@ public class Exercise3 {
 
         try {
             FileWriter writer = new FileWriter(file);
-            writer.write("Name,ID,Gender\n");
+            writer.write("Name,Student ID,Gender\n");
             for (int i = 0; i < 3; i ++) {
+                System.out.println("+ Student " + (i + 1) + ":");
                 System.out.print("Enter Your Name: ");
                 String name = input.nextLine();
                 System.out.print("Enter Your ID: ");
