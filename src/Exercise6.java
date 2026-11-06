@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Exercise6 {
     public static void clearScreen() {System.out.print("\033[H\033[2J");}
-
     public static List<List<String>> getData(Path path) {
         List<List<String>> data = new ArrayList<>();
         try {
@@ -22,9 +21,7 @@ public class Exercise6 {
             }
             bReader.close();
             return data;
-        } catch (Exception e) {
-            System.out.println("File not found!");
-        }
+        } catch (Exception e) {System.out.println("File not found!");}
         return null;
     }
     public static void main(String[] args) {
@@ -32,7 +29,6 @@ public class Exercise6 {
         Path path = Path.of("CandidatePerformanceTest.csv");
         List<List<String>> data = getData(path);
         if (data == null) return;
-
         while (true) {
             Scanner input = new Scanner(System.in);
             System.out.println("1 - Total Candidates");
@@ -55,7 +51,6 @@ public class Exercise6 {
                 case 1 -> {
                     clearScreen();
                     long maleCounts = data.stream().filter(candidate -> candidate.get(1).equals("male")).count();
-
                     System.out.printf("Total Candidates: %d\n", data.size());
                     System.out.printf("- Male: %.2f%% of total candidates\n", (maleCounts / (double) data.size() * 100));
                     System.out.printf("- Female: %.2f%% of total candidates\n", (1 - maleCounts / (double) data.size()) * 100);
@@ -68,7 +63,6 @@ public class Exercise6 {
                         if (candidate.get(1).equals("male")) genderCounts[0] ++;
                         else genderCounts[1] ++;
                     });
-
                     System.out.printf("Ttoal Cadidates: %d\n", genderCounts[0] + genderCounts[1]);
                     System.out.printf("- Male: %.2f%% of total candidates\n", genderCounts[0] / (double) data.size() * 100);
                     System.out.printf("- Female: %.2f%% of total candidates\n", genderCounts[1] / (double) data.size() * 100);
@@ -87,7 +81,6 @@ public class Exercise6 {
                                 if (candidate.get(1).equals("male")) genderCounts[0] ++;
                                 else genderCounts[1] ++;
                             });
-
                     System.out.printf("Ttoal Candidates: %d\n", genderCounts[0] + genderCounts[1]);
                     System.out.printf("- Male: %.2f%% of total candidates\n", genderCounts[0] / (double) data.size() * 100);
                     System.out.printf("- Female: %.2f%% of total candidates\n", genderCounts[1] / (double) data.size() * 100);
@@ -103,7 +96,6 @@ public class Exercise6 {
                         if (candidate.get(1).equals("male")) genderCounts[group - 65][0] ++;
                         else genderCounts[group - 65][1] ++;
                     });
-                    
                     for (int i = 0; i < 5; i ++) {
                         System.out.println("Group " + (char) (65 + i) + ": " + groups[i] + " Candidate(s)");
                         System.out.printf("- Male: %.2f%%\n", genderCounts[i][0] / (double) groups[i] * 100);
@@ -122,7 +114,6 @@ public class Exercise6 {
                     System.out.println("Invalid Option!!");
                     break;
                 }
-                
             }
             System.out.println("=".repeat(30));
         }
