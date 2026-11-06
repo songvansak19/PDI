@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -9,28 +10,48 @@ public class Exercise5 {
     public static void addStudent(Path path, String string) {
         try {
             if (!Files.exists(path)) Files.writeString(path, "Name,Student ID,Gender");
-            else {
-                String array = Files.readString(path);
-                array += string;
-                Files.writeString(path, array);
-            }
+            String array = Files.readString(path);
+            array += string;
+            Files.writeString(path, array);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    public static List<String[]> sortName(Path path, List<String[]> students) {
+    public static List<String[]> getData(Path path, List<String[]> students) {
+        // Read the database and store into an Array list of Stduents.
         try {
+            if (!Files.exists(path)) Files.writeString(path, "Name,Student ID,Gender");
             BufferedReader bReader = Files.newBufferedReader(path);
-            bReader.readLine(); // Skip the Header
-
+            bReader.readLine(); // Call 'readLine()' to Skip the Header in the database.
+            
             while (true) {
                 String line = bReader.readLine();
                 if (line == null) break;
-               students.add(line.split(","));
+                students.add(line.split(","));
             }
             bReader.close();
-            students.sort((rowA, rowB) -> rowA[0].compareToIgnoreCase(rowB[0]));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return students;
+    }
+
+    public static List<String[]> sortName(Path path) {
+        List<String[]> students = new ArrayList<>();
+        students = getData(path, students); // Get the Updated data first
+
+        students.sort((rowA, rowB) -> rowA[0].compareToIgnoreCase(rowB[0]));
+        // Write back to the database.
+        try {
+            BufferedWriter bWriter = Files.newBufferedWriter(path);
+            bWriter.write("Name,Student ID,Gender");
+            bWriter.newLine();
+            for (String[] student : students) {
+                bWriter.write(student[0] + "," + student[1] + "," + student[2]);
+                bWriter.newLine();
+            }
+            bWriter.close();
         } catch (Exception e) {
             System.out.println(e);
             return null;
@@ -41,17 +62,18 @@ public class Exercise5 {
         Path path = Path.of("Ex3StudentData.csv");
         List<String[]> students = new ArrayList<>();
 
-        students = sortName(path, students);
+        students = getData(path, students);
+        students = sortName(path);
 
         Scanner input = new Scanner(System.in);
 
         try {
             System.out.println("\n\nStudent Sort by Name");
-            System.out.println("=".repeat(60));
+            System.out.println("=".repeat(65));
             for (String[] student : students) {
                 System.out.println("name: " + student[0] + "\t\t ID: " + student[1] + "\t\t Gender: " + student[2]);
             }
-            System.out.println("=".repeat(60) + "\n");
+            System.out.println("=".repeat(65) + "\n");
 
             for (int i = 0; i < 3; i ++) {
                 System.out.println("+ Student " + (i + 1) + ":");
@@ -65,13 +87,14 @@ public class Exercise5 {
                 String newStudent = name + "," + id + "," + gender + "\n";
                 addStudent(path, newStudent);
             }
-            students = sortName(path, students);
+            students = sortName(path);
 
             System.out.println("\n\nStudent Sort by Name");
+            System.out.println("=".repeat(65));
             for (String[] student : students) {
                 System.out.println("name: " + student[0] + "\t\t ID: " + student[1] + "\t\t Gender: " + student[2]);
             }
-            System.out.println("=".repeat(60) + "\n");
+            System.out.println("=".repeat(65) + "\n");
 
             input.close();
         } catch (Exception e) {
