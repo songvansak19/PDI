@@ -80,5 +80,6 @@ public class Exercise4 {
         // String json = gson.toJson(students);
         System.out.println("=".repeat(30));
         // System.out.println(gson.toJson(json));
+        input.close();
     }
 }

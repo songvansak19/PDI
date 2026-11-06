@@ -37,5 +37,6 @@ public class Exercise2 {
             i ++;
         }
         System.out.println("=".repeat(30));
+        input.close();
     }
 }
