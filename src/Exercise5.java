@@ -78,7 +78,7 @@ public class Exercise5 {
             System.out.println("\n\nStudent Sort by Name");
             System.out.println("=".repeat(65));
             for (String[] student : students) {
-                System.out.println("name: " + student[0] + "\t\t ID: " + student[1] + "\t\t Gender: " + student[2]);
+                System.out.printf("Name: %-20s ID: %-20s Gender: %s\n", student[0], student[1], student[2]);
             }
             System.out.println("=".repeat(65) + "\n");
 
@@ -99,7 +99,7 @@ public class Exercise5 {
             System.out.println("\n\nStudent Sort by Name");
             System.out.println("=".repeat(65));
             for (String[] student : students) {
-                System.out.println("name: " + student[0] + "\t\t ID: " + student[1] + "\t\t Gender: " + student[2]);
+                System.out.printf("Name: %-20s ID: %-20s Gender: %s\n", student[0], student[1], student[2]);
             }
             System.out.println("=".repeat(65) + "\n");
 
