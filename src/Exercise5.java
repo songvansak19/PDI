@@ -9,7 +9,8 @@ import java.util.Scanner;
 public class Exercise5 {
     public static void addStudent(Path path, String string) {
         try {
-            if (!Files.exists(path)) Files.writeString(path, "Name,Student ID,Gender");
+            if (!Files.exists(path))
+                Files.writeString(path, "Name,Student ID,Gender");
             String array = Files.readString(path);
             array += string;
             Files.writeString(path, array);
@@ -21,13 +22,15 @@ public class Exercise5 {
     public static List<String[]> getData(Path path, List<String[]> students) {
         // Read the database and store into an Array list of Stduents.
         try {
-            if (!Files.exists(path)) Files.writeString(path, "Name,Student ID,Gender");
+            if (!Files.exists(path))
+                Files.writeString(path, "Name,Student ID,Gender");
             BufferedReader bReader = Files.newBufferedReader(path);
             bReader.readLine(); // Call 'readLine()' to Skip the Header in the database.
-            
+
             while (true) {
                 String line = bReader.readLine();
-                if (line == null) break;
+                if (line == null)
+                    break;
                 students.add(line.split(","));
             }
             bReader.close();
@@ -40,10 +43,11 @@ public class Exercise5 {
 
     public static List<String[]> sortName(Path path) {
         List<String[]> students = new ArrayList<>();
-        // Get the Updated data first.
-        students = getData(path, students);
-        // Sort the data.
-        students.sort((rowA, rowB) -> rowA[0].compareToIgnoreCase(rowB[0]));
+        // Get the Updated data first then, sort those data by name.
+        students = getData(path, students)
+                .stream()
+                .sorted((rowA, rowB) -> rowA[0].compareToIgnoreCase(rowB[0]))
+                .toList();
         // Write back to the database.
         try {
             BufferedWriter bWriter = Files.newBufferedWriter(path);
@@ -60,6 +64,7 @@ public class Exercise5 {
         }
         return students;
     }
+
     public static void main(String[] args) {
         Path path = Path.of("Ex3StudentData.csv");
         List<String[]> students = new ArrayList<>();
@@ -77,7 +82,7 @@ public class Exercise5 {
             }
             System.out.println("=".repeat(65) + "\n");
 
-            for (int i = 0; i < 3; i ++) {
+            for (int i = 0; i < 3; i++) {
                 System.out.println("+ Student " + (i + 1) + ":");
                 System.out.print("Enter Your Name: ");
                 String name = input.nextLine();
@@ -102,5 +107,5 @@ public class Exercise5 {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }    
+    }
 }
