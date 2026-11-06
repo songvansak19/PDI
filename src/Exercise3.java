@@ -3,14 +3,12 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Exercise3 {
-    public static void FileUpdate(Path path, String string) {
+    public static void addStudent(Path path, String string) {
         try {
             if (!Files.exists(path)) Files.writeString(path, "Name,Student ID,Gender");
-            else {
-                String data = Files.readString(path);
-                data += string;
-                Files.writeString(path, data);
-            }
+            String data = Files.readString(path);
+            data += string;
+            Files.writeString(path, data);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -31,7 +29,7 @@ public class Exercise3 {
                 String gender = input.nextLine();
                 
                 String string = name + "," + id + "," + gender + "\n";
-                FileUpdate(path, string);
+                addStudent(path, string);
             }
             input.close();
         } catch (Exception e) {
