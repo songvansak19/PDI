@@ -10,11 +10,13 @@ public class Account { // This is an individual user account 'Class'.
 
     public Account(String name,
             long account_num,
+            String password,
             double balance,
             String currentTime
     ) {
         this.name = name;
         this.account_num = account_num;
+        this.password = password;
         this.balance = balance;
         history.add("Account Creation Date: " + currentTime);
         history.add("Initial Balance: " + this.balance);

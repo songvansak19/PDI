@@ -68,7 +68,7 @@ public class BankService {
             else break;
         }
         
-        accountRepo.addNew(new Account(name, accountNumber, balance, currentTime));
+        accountRepo.addNew(new Account(name, accountNumber, password, balance, currentTime));
 
         clearScreen();
         System.out.println("Please log in to your account!");

@@ -40,12 +40,19 @@ public class Main {
         historyLoop: while (true) {
             int key;
             
-            num = Math.clamp(num, 0, histories.size() - 5);
+            // num = Math.clamp(num, 0, histories.size() - 5);
+            num = Math.max(0, Math.min(num, histories.size() - 1));
 
             System.out.println("Your History | " + histories.size() + " history log(s)");
             System.out.println("=".repeat(60));
-            for (int i = histories.size() - num - 1; i > histories.size() - num - 6; i --) {
-                System.out.println(" - " + histories.get(i));
+            if (histories.size() >= 5) {
+                for (int i = histories.size() - num - 1; i > histories.size() - num - 6; i --) {
+                    System.out.println(" - " + histories.get(i));
+                }
+            } else {
+                for (String log : histories) {
+                    System.out.println(" - " + log);
+                }
             }
             System.out.println("=".repeat(60));
             System.out.print("Press 'w/s' to Navigate | Press 'q' to Go Back");
@@ -166,20 +173,25 @@ public class Main {
                                             if (str.equals("q") || str.equals("Q")) break;
 
                                             clearScreen();
-                                            System.out.print("Please Enter yourNew Password (Enter 'q' to Go back): ");
+                                            System.out.print("Please Enter your New Password (Enter 'q' to Go back): ");
                                             str = input.nextLine();
 
                                             if (str.equals("q") || str.equals("Q")) break;
-
+                                            else if (current_acc.getPassword().equals(str)) {
+                                                clearScreen();
+                                                System.out.println("You cannot enter the same password!!");
+                                                System.out.println("=".repeat(30));
+                                                break;
+                                            }
                                             bankService.changePassword(current_acc, str);
 
                                             clearScreen();
                                             System.out.println("Your current password has been changed!");
                                             System.out.println("=".repeat(30));
+
                                         }
                                         default -> System.out.println("Invalid Option!!\n" + "=".repeat(30));
                                     }
-                                    clearScreen();
                                 }
                                 case '1' -> {
                                     clearScreen();
