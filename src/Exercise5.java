@@ -33,14 +33,16 @@ public class Exercise5 {
             bReader.close();
         } catch (Exception e) {
             System.out.println(e);
+            return null;
         }
         return students;
     }
 
     public static List<String[]> sortName(Path path) {
         List<String[]> students = new ArrayList<>();
-        students = getData(path, students); // Get the Updated data first
-
+        // Get the Updated data first.
+        students = getData(path, students);
+        // Sort the data.
         students.sort((rowA, rowB) -> rowA[0].compareToIgnoreCase(rowB[0]));
         // Write back to the database.
         try {
