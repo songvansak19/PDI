@@ -17,7 +17,7 @@ public class Exercise7 {
     public static List<List<String>> getData(Path path, Path outputDir) {
          List<List<String>> data = new ArrayList<>();
         try {
-            if (Files.exists(outputDir)) return null;
+            if (Files.exists(outputDir)) {System.out.println("\nOutput Folder is already existed!!"); return null;};
             Files.createDirectory(outputDir);
             BufferedReader bReader = Files.newBufferedReader(path);
             for (int i = 0; i < 3; i ++) bReader.readLine();
