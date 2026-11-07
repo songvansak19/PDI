@@ -6,12 +6,12 @@ public class TinyUpdateServer {
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(8000);
 
-        app.get("/", ctx -> ctx.result(data));
+        app.get("/", context -> context.result(data));
 
-        app.put("/", ctx -> {
-            data = ctx.body();
+        app.put("/", context -> {
+            data = context.body();
             System.out.println(data);
-            ctx.result(data);
+            context.result(data);
         });
     }
 }
