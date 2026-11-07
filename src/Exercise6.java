@@ -34,7 +34,7 @@ public class Exercise6 {
             System.out.println("1 - Total Candidates");
             System.out.println("2 - Candidate with score above 90% ");
             System.out.println("3 - Each Subject with score atleast 85%");
-            System.out.println("4 - Students in each group");
+            System.out.println("4 - Candidate in each group");
             System.out.println("5 - Exit the program");
             System.out.print("Your Option: ");
             String str = input.nextLine();
@@ -50,19 +50,19 @@ public class Exercise6 {
             switch (opt) {
                 case 1 -> {
                     clearScreen();
-                    long maleCounts = data.stream().filter(candidate -> candidate.get(1).equals("male")).count();
+                    long[] genderCounts = new long[2];
+                    data.stream()
+                            .map(candidate -> candidate.get(1))
+                            .forEach(gender -> genderCounts[gender.equals("male") ? 0 : 1] ++);
                     System.out.printf("Total Candidates: %d\n", data.size());
-                    System.out.printf("- Male: %.2f%% of total candidates\n", (maleCounts / (double) data.size() * 100));
-                    System.out.printf("- Female: %.2f%% of total candidates\n", (1 - maleCounts / (double) data.size()) * 100);
+                    System.out.printf("- Male: %.2f%% of total candidates\n", genderCounts[0] / (double) data.size() * 100);
+                    System.out.printf("- Female: %.2f%% of total candidates\n", genderCounts[1] / (double) data.size() * 100);
                     break;
                 }
                 case 2 -> {
                     clearScreen();
                     long[] genderCounts = new long[2];
-                    data.stream().filter(candidate -> Double.parseDouble(candidate.get(9)) >= 90).forEach(candidate -> {
-                        if (candidate.get(1).equals("male")) genderCounts[0] ++;
-                        else genderCounts[1] ++;
-                    });
+                    data.stream().filter(candidate -> Double.parseDouble(candidate.get(9)) >= 90).forEach(candidate -> genderCounts[candidate.get(1).equals("male") ? 0 : 1] ++);
                     System.out.printf("Ttoal Cadidates: %d\n", genderCounts[0] + genderCounts[1]);
                     System.out.printf("- Male: %.2f%% of total candidates\n", genderCounts[0] / (double) data.size() * 100);
                     System.out.printf("- Female: %.2f%% of total candidates\n", genderCounts[1] / (double) data.size() * 100);
@@ -77,10 +77,7 @@ public class Exercise6 {
                                     .map(score -> Integer.parseInt(score))
                                     .allMatch(score -> score >= 85)
                             )
-                            .forEach(candidate -> {
-                                if (candidate.get(1).equals("male")) genderCounts[0] ++;
-                                else genderCounts[1] ++;
-                            });
+                            .forEach(candidate -> genderCounts[candidate.get(1).equals("male") ? 0 : 1] ++);
                     System.out.printf("Ttoal Candidates: %d\n", genderCounts[0] + genderCounts[1]);
                     System.out.printf("- Male: %.2f%% of total candidates\n", genderCounts[0] / (double) data.size() * 100);
                     System.out.printf("- Female: %.2f%% of total candidates\n", genderCounts[1] / (double) data.size() * 100);
@@ -91,10 +88,10 @@ public class Exercise6 {
                     int[] groups = new int[5];
                     long genderCounts[][] = new long[5][2];
                     data.stream().forEach(candidate -> {
-                        int group = (char) candidate.get(2).charAt(candidate.get(2).length() - 1);
+                        int group = candidate.get(2).charAt(candidate.get(2).length() - 1);
+                        System.out.println(group);
                         groups[group - 65] ++;
-                        if (candidate.get(1).equals("male")) genderCounts[group - 65][0] ++;
-                        else genderCounts[group - 65][1] ++;
+                        genderCounts[group - 65][candidate.get(1).equals("male") ? 0 : 1] ++;
                     });
                     for (int i = 0; i < 5; i ++) {
                         System.out.println("Group " + (char) (65 + i) + ": " + groups[i] + " Candidate(s)");
