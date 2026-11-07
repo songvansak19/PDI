@@ -29,7 +29,7 @@ if not exist "bin" (
 javac -d bin src/Exercise6.java && java -cp bin Exercise6
 ```
 
-Replace both instances of `Exercise6` with the name of the Java file you want to run. For example, to run `Exercise1`, update the lines to:
+Replace both words of `Exercise6` with the name of the Java file you want to run. For example, to run `Exercise1`, update the lines to:
 
 ```batch
 javac -d bin src/Exercise1.java && java -cp bin Exercise1

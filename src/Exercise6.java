@@ -89,7 +89,6 @@ public class Exercise6 {
                     long genderCounts[][] = new long[5][2];
                     data.stream().forEach(candidate -> {
                         int group = candidate.get(2).charAt(candidate.get(2).length() - 1);
-                        System.out.println(group);
                         groups[group - 65] ++;
                         genderCounts[group - 65][candidate.get(1).equals("male") ? 0 : 1] ++;
                     });
