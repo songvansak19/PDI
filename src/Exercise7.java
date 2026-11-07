@@ -17,7 +17,7 @@ public class Exercise7 {
     public static List<List<String>> getData(Path path, Path outputDir) {
          List<List<String>> data = new ArrayList<>();
         try {
-            Files.createDirectory(outputDir);
+            if (!Files.exists(outputDir))Files.createDirectory(outputDir);
             BufferedReader bReader = Files.newBufferedReader(path);
             for (int i = 0; i < 3; i ++) bReader.readLine();
             while (true) {
@@ -26,7 +26,7 @@ public class Exercise7 {
                 data.add(Arrays.asList(line.split(",")));
             }
             return data;
-        } catch (Exception e) {System.out.println("\nFile not Found or File already existed!!"); return null;}
+        } catch (Exception e) {System.out.println("\nData not Found!!"); return null;}
     }
     public static String writer(List<String> candidate) {
         String line = new String();
