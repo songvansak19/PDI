@@ -190,7 +190,7 @@ public class Main {
                                             System.out.println("=".repeat(30));
 
                                         }
-                                        default -> System.out.println("Invalid Option!!\n" + "=".repeat(30));
+                                        default -> clearScreen();
                                     }
                                 }
                                 case '1' -> {
