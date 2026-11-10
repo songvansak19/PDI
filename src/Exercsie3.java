@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Exercsie3 {
 
-    public class Book {
+    public static class Book {
         String title;
         String author;
         double price;
@@ -28,16 +28,32 @@ public class Exercsie3 {
     }
 
     public static void main(String[] args) {
-        Book book = new Book();
         Scanner input = new Scanner(System.in);
         System.out.println("1 - Add new book");
-
-        System.out.print("Enter Book Name: ");
-        String name = input.nextLine();
-        System.out.print("Entr Auther Name: ");
-        String author = input.nextLine();
-        System.out.print("Enter Book PriceL: ");
-        double price = input.nextDouble();
-        System.out.println("Here is your book:");
+        System.out.println("2 - Add empty book");
+        System.out.print("Your Option: ");
+        int option = input.nextInt();
+        switch (option) {
+            case 1: {
+                System.out.print("Enter Book Name: ");
+                String name = input.nextLine();
+                System.out.print("Enter Author Name: ");
+                String author = input.nextLine();
+                System.out.print("Enter Book Price: ");
+                double price = input.nextDouble();
+                System.out.println("Here is your book:");
+                Book book = new Book(name, author, price);
+                book.display();
+                break;
+            }
+            case 2: {
+                Book book = new Book();
+                System.out.println("Here is your book:");
+                book.display();
+            }
+            default:
+                break;
+        }
+        input.close();
     }
 }
