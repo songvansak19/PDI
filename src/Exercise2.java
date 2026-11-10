@@ -59,6 +59,7 @@ public class Exercise2 {
                 default -> System.out.println("Invalid Option!");
             }
         }
+        input.close();
         System.out.println("Goodbye!!");
     }
 }
