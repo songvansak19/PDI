@@ -69,5 +69,6 @@ public class Exercise4 {
         employee.deposit(amount);
 
         System.out.println(employee.getSalary());
+        input.close();
     }
 }

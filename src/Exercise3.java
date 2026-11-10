@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Exercsie3 {
+public class Exercise3 {
 
     public static class Book {
         String title;
