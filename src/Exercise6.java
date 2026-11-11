@@ -15,7 +15,7 @@ public class Exercise6 {
         public double getHeight() {
             return height;
         }
-        
+
         public double area() {
             return width * height;
         }
@@ -44,6 +44,7 @@ public class Exercise6 {
             return 2 * Math.PI * radius;
         }
     }
+
     public static void main(String[] args) {
         System.out.println("+ Rectangle:");
         Rectangle rec = new Rectangle(10, 20);

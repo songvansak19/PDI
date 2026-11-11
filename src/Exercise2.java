@@ -22,7 +22,7 @@ public class Exercise2 {
                     a = input.nextDouble();
                     System.out.print("Enter number b: ");
                     b = input.nextDouble();
-                    System.out.println(a + " + " + b + " = " + (a + b)) ;
+                    System.out.println(a + " + " + b + " = " + (a + b));
                 }
                 case 2 -> {
                     double a, b;
@@ -30,7 +30,7 @@ public class Exercise2 {
                     a = input.nextDouble();
                     System.out.print("Enter number b: ");
                     b = input.nextDouble();
-                    System.out.println(a + " - " + b + " = " + (a - b)) ;
+                    System.out.println(a + " - " + b + " = " + (a - b));
                 }
                 case 3 -> {
                     double a, b;
@@ -38,7 +38,7 @@ public class Exercise2 {
                     a = input.nextDouble();
                     System.out.print("Enter number b: ");
                     b = input.nextDouble();
-                    System.out.println(a + " x " + b + " = " + (a * b)) ;
+                    System.out.println(a + " x " + b + " = " + (a * b));
                 }
                 case 4 -> {
                     double a, b;
@@ -46,13 +46,14 @@ public class Exercise2 {
                     a = input.nextDouble();
                     System.out.print("Enter number b: ");
                     b = input.nextDouble();
-                    System.out.println(a + " / " + b + " = " + (a / b)) ;
+                    System.out.println(a + " / " + b + " = " + (a / b));
                 }
                 case 5 -> {
                     int n, sum = 0;
                     System.out.print("Enter number n: ");
                     n = input.nextInt();
-                    for (int i = 1; i <= n; i ++) sum += i;
+                    for (int i = 1; i <= n; i++)
+                        sum += i;
                     System.out.println("Sum from 1 to " + n + " is: " + sum);
                 }
                 case 6 -> running = false;

@@ -13,8 +13,7 @@ public class Exercise4 {
                 long id,
                 double salary,
                 int age,
-                String role
-            ) {
+                String role) {
             this.name = name;
             this.id = id;
             this.salary = salary;
