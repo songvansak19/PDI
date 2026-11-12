@@ -3,7 +3,7 @@ public class Exercise1 {
         protected String brand;
         protected int year;
         public void start() {
-            System.out.println("Start the engine!!");
+            System.out.println(brand + ": Start the engine: vroom vroom!!");
         }
     }
 
@@ -13,6 +13,7 @@ public class Exercise1 {
             this.brand = brand;
             this.year = year;
             this.num_door = num_door;
+            super.start();
         }
         public void honk() {
             System.out.println("Car hoking: beep, beep!!");
@@ -20,11 +21,8 @@ public class Exercise1 {
     }
 
     public static void main(String[] args) {
-        Vehicle vehicle = new Vehicle();
         Car car = new Car(4, "Toyota", 2026);
 
-        vehicle.start();
-        car.start();
         car.honk();
     }    
 }
