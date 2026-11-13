@@ -1,3 +1,4 @@
+package Basic;
 public class Exercise7 {
     public static abstract class Payment {
         public abstract void process_payment(double amount);

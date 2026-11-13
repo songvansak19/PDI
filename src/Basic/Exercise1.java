@@ -1,3 +1,4 @@
+package Basic;
 public class Exercise1 {
     public static class Vehicle {
         protected String brand;

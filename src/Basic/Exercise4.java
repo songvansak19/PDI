@@ -1,3 +1,4 @@
+package Basic;
 public class Exercise4 extends Thread {
     public static class Bank {
         protected long account_number;

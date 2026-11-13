@@ -1,3 +1,4 @@
+package Basic;
 public class Exercise3 {
     public static class Person {
         String name;
