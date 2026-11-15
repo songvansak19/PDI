@@ -26,6 +26,7 @@ public class Exercise7 {
                 if (line == null) break;
                 data.add(Arrays.asList(line.split(",")));
             }
+            bReader.close();
             return data;
         } catch (Exception e) {System.out.println("\nData not Found!!"); return null;}
     }
