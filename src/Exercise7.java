@@ -1,85 +1,109 @@
-/*
-Write a program that can creates and runs multiple threads using Thread class.
-Let’s define 3 functions to: 
-a) find sum from 1 to n, 
-b) show all prime numbers in between 1 to 100, 
-c) read data from a CSV file of student list (name, ID, age, gender) 
-and store it into an array list.
- */
-
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Exercise7 {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter n number: ");
-        int num = input.nextInt();
-        input.close();
+    private static final Path STUDENT_CSV = Path.of("students.csv");
 
-        Thread thread1 = new Thread() {
-            @Override
-            public void run() {
-                int sum = 0;
-                for (int i = 1; i <= num; i++)
-                    System.out.println("Sum: " + (sum += i));
-            }
-        };
+    private static class Student {
+        final String name;
+        final String id;
+        final int age;
+        final String gender;
 
-        Thread thread2 = new Thread() {
-            @Override
-            public void run() {
-                for (int i = 2; i <= 100; i++) {
-                    boolean isPrime = true;
-                    for (int j = 2; j < i; j++) {
-                        if (i % j == 0) {
-                            isPrime = false;
-                            break;
-                        }
-                    }
-                    if (i == 2 || i == 3)
-                        System.out.println("Prime: " + i);
-                    if (isPrime)
-                        System.out.println("Prime: " + i);
+        Student(String name, String id, int age, String gender) {
+            this.name = name;
+            this.id = id;
+            this.age = age;
+            this.gender = gender;
+        }
+
+        @Override
+        public String toString() {
+            return "Student{name='" + name + "', id='" + id + "', age=" + age
+                    + ", gender='" + gender + "'}";
+        }
+    }
+
+    private static List<Student> readStudents(Path file) throws IOException {
+        List<Student> students = new ArrayList<>();
+        try (BufferedReader reader = Files.newBufferedReader(file)) {
+            String line;
+            boolean firstLine = true;
+            while ((line = reader.readLine()) != null) {
+                if (line.isBlank()) continue;
+                String[] fields = line.split(",", -1);
+                if (firstLine && fields[0].trim().equalsIgnoreCase("name")) {
+                    firstLine = false;
+                    continue;
                 }
-            }
-        };
-
-        Thread thread3 = new Thread() {
-            @Override
-            public void run() {
-                List<List<String>> data = new ArrayList<>();
+                firstLine = false;
+                if (fields.length != 4) {
+                    System.out.println("Skipping invalid student row: " + line);
+                    continue;
+                }
                 try {
-                    BufferedReader bReader = Files.newBufferedReader(
-                            Path.of("CandidatePerformanceTest.csv"));
-                    for (int i = 0; i < 3; i++)
-                        bReader.readLine();
-                    String line;
-                    for (int i = 0; i < 100; i++) {
-                        if ((line = bReader.readLine()) == null)
-                            break;
-                        data.add(Arrays.asList(line.split(",")));
-                    }
-                    bReader.close();
-                } catch (Exception e) {
-                    System.out.println(e);
+                    students.add(new Student(fields[0].trim(), fields[1].trim(),
+                            Integer.parseInt(fields[2].trim()), fields[3].trim()));
+                } catch (NumberFormatException e) {
+                    System.out.println("Skipping row with invalid age: " + line);
                 }
-                data.stream().forEach(candidate -> {
-                    System.out.println("ID: " + candidate.get(0)
-                            + ", Group: " + candidate.get(2)
-                            + ", Gender: " + candidate.get(1)
-                            + ", Total Score: " + candidate.get(8));
-                });
             }
-        };
+        }
+        return students;
+    }
 
-        thread1.start();
-        thread2.start();
-        thread3.start();
+    public static void main(String[] args) throws InterruptedException {
+        int n;
+        try (Scanner input = new Scanner(System.in)) {
+            System.out.print("Enter n: ");
+            n = input.nextInt();
+        }
+        if (n < 0) {
+            System.out.println("n must be zero or greater.");
+            return;
+        }
+
+        Thread sumThread = new Thread(() -> {
+            long sum = (long) n * (n + 1) / 2;
+            System.out.println("Sum from 1 to " + n + " = " + sum);
+        }, "sum");
+
+        Thread primeThread = new Thread(() -> {
+            System.out.print("Primes from 1 to 100: ");
+            for (int number = 2; number <= 100; number++) {
+                boolean prime = true;
+                for (int divisor = 2; divisor * divisor <= number; divisor++) {
+                    if (number % divisor == 0) {
+                        prime = false;
+                        break;
+                    }
+                }
+                if (prime) System.out.print(number + " ");
+            }
+            System.out.println();
+        }, "primes");
+
+        Thread studentThread = new Thread(() -> {
+            try {
+                List<Student> students = readStudents(STUDENT_CSV);
+                System.out.println("Students loaded into ArrayList: " + students.size());
+                students.forEach(System.out::println);
+            } catch (IOException e) {
+                System.out.println("Could not read " + STUDENT_CSV
+                        + ". Create it with columns name,ID,age,gender.");
+            }
+        }, "students");
+
+        sumThread.start();
+        primeThread.start();
+        studentThread.start();
+        sumThread.join();
+        primeThread.join();
+        studentThread.join();
     }
 }
