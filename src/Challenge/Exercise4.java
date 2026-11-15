@@ -52,11 +52,10 @@ public class Exercise4 {
 
     // this is called 'helper function'
     public static void transfer(
-        double amount,
-        Account account,
-        String fromCurrency,
-        String toCurrency
-    ) throws BankError {
+            double amount,
+            Account account,
+            String fromCurrency,
+            String toCurrency) throws BankError {
         if (account == null) {
             throw new AccountNotFoundError("Account not found!!");
         } else if (!fromCurrency.equals(toCurrency)) {
@@ -73,10 +72,11 @@ public class Exercise4 {
 
         try {
             /*
-            This basically means the sender (fromCurrency) and the receiver (toCurrency)
-            must have the same currency type, and that is how most bank transfer money work 
-            */
-            transfer(100, user, "USD", "RIEL"); 
+             * This basically means the sender (fromCurrency) and the receiver (toCurrency)
+             * must have the same currency type, and that is how most bank transfer money
+             * work
+             */
+            transfer(100, user, "USD", "RIEL");
         } catch (BankError e) {
             System.out.println(e.getClass().getSimpleName() + ": " + e.getMessage());
         }
